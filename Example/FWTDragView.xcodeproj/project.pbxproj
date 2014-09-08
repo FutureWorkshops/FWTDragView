@@ -43,6 +43,7 @@
 		22D14E1019BDEEB4001947D9 /* FWTDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FWTDragView.h; path = ../../Pod/Classes/FWTDragView.h; sourceTree = "<group>"; };
 		22D14E1119BDEEB4001947D9 /* FWTDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FWTDragView.m; path = ../../Pod/Classes/FWTDragView.m; sourceTree = "<group>"; };
 		22D14E1419BDEEDB001947D9 /* FWTDragViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FWTDragViewDelegate.h; path = ../../Pod/Classes/FWTDragViewDelegate.h; sourceTree = "<group>"; };
+		22D14E1719BDF27B001947D9 /* FWTDragViewDismissCriteria.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FWTDragViewDismissCriteria.h; path = ../../Pod/Classes/FWTDragViewDismissCriteria.h; sourceTree = "<group>"; };
 		2493EE63DCF54C47A51F5E44 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* FWTDragView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWTDragView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,6 +104,7 @@
 				22D14E1019BDEEB4001947D9 /* FWTDragView.h */,
 				22D14E1119BDEEB4001947D9 /* FWTDragView.m */,
 				22D14E1419BDEEDB001947D9 /* FWTDragViewDelegate.h */,
+				22D14E1719BDF27B001947D9 /* FWTDragViewDismissCriteria.h */,
 			);
 			name = "Drag View";
 			sourceTree = "<group>";
