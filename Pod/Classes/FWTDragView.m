@@ -7,13 +7,14 @@
 //
 
 #import "FWTDragView.h"
+#import "FWTDragViewPanGestureHandler.h"
 
 @interface FWTDragView ()
 
 @property (nonatomic,strong) NSArray *dismissCriteria;
 @property (nonatomic,assign) CGPoint lastTouchPoint;
 @property (nonatomic,assign) CGPoint initialTouchPoint;
-
+@property (nonatomic,strong) FWTDragViewPanGestureHandler *gestureHandler;
 @end
 
 @implementation FWTDragView
@@ -23,9 +24,11 @@
     FWTDragView *dragView = [[self alloc] init];
     
     dragView.dismissCriteria = dismissCriteria;
+    dragView.gestureHandler = [FWTDragViewPanGestureHandler draggingGestureHandlerAttachedToView:dragView];
     
     return dragView;
 }
+
 
 - (CGPoint)touchPoint {
     

@@ -16,6 +16,10 @@
 @optional
 - (void)dragViewWillBeginDragging:(FWTDragView *)dragView;
 - (void)dragViewDidBeginDragging:(FWTDragView *)dragView;
+
+- (void)dragViewWillDrag:(FWTDragView *)dragView;
+- (void)dragViewDidDrag:(FWTDragView *)dragView;
+
 - (void)dragViewWillEndDragging:(FWTDragView *)dragView;
 - (void)dragViewDidEndDragging:(FWTDragView *)dragView;
 @end
