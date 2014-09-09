@@ -11,6 +11,13 @@
 
 @interface FWTDragView : UIView
 
+- (CGPoint)touchPoint;
+- (CGPoint)touchOffsetFromStart;
+
 @property (nonatomic,weak) id <FWTDragViewDelegate> dragDelegate;
+
+
+// Designated initializer
++ (instancetype)dragViewWithDismissCriteria:(NSArray *)dismissCriteria;
 
 @end

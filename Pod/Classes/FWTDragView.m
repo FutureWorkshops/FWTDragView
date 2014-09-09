@@ -8,24 +8,35 @@
 
 #import "FWTDragView.h"
 
+@interface FWTDragView ()
+
+@property (nonatomic,strong) NSArray *dismissCriteria;
+@property (nonatomic,assign) CGPoint lastTouchPoint;
+@property (nonatomic,assign) CGPoint initialTouchPoint;
+
+@end
+
 @implementation FWTDragView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
++ (instancetype)dragViewWithDismissCriteria:(NSArray *)dismissCriteria {
+    
+    FWTDragView *dragView = [[self alloc] init];
+    
+    dragView.dismissCriteria = dismissCriteria;
+    
+    return dragView;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (CGPoint)touchPoint {
+    
+    CGPoint point = (CGPoint){self.lastTouchPoint.x,self.lastTouchPoint.y};
+    return point;
 }
-*/
+
+- (CGPoint)touchOffsetFromStart {
+    
+    CGPoint point = (CGPoint){self.initialTouchPoint.x - self.lastTouchPoint.x,self.initialTouchPoint.y - self.lastTouchPoint.y};
+    return point;
+}
 
 @end
