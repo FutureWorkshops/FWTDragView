@@ -9,6 +9,7 @@
 #import "FWTViewController.h"
 #import "FWTDragView.h"
 #import "FWTLeftDismissCriteria.h"
+#import "FWTRightDismissCriteria.h"
 
 @interface FWTViewController ()
 
@@ -21,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    self.dragView = [FWTDragView dragViewWithDismissCriteria:@[[FWTLeftDismissCriteria new]]];
+    self.dragView = [FWTDragView dragViewWithDismissCriteria:@[[FWTLeftDismissCriteria new],[FWTRightDismissCriteria new]]];
     self.dragView.frame = (CGRect){{100.f,100.f},{120.f,200.f}};
     self.dragView.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:self.dragView];

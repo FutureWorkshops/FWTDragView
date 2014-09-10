@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		221D128519BF03E0000A45E3 /* FWTDragViewPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 221D128419BF03E0000A45E3 /* FWTDragViewPanGestureHandler.m */; };
 		2294BF5819C05F1100B540A6 /* FWTLeftDismissCriteria.m in Sources */ = {isa = PBXBuildFile; fileRef = 2294BF5719C05F1100B540A6 /* FWTLeftDismissCriteria.m */; };
+		2294BF5B19C0806700B540A6 /* FWTRightDismissCriteria.m in Sources */ = {isa = PBXBuildFile; fileRef = 2294BF5A19C0806700B540A6 /* FWTRightDismissCriteria.m */; };
 		22D14E1219BDEEB4001947D9 /* FWTDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D14E1119BDEEB4001947D9 /* FWTDragView.m */; };
 		4074E96378D94958A42E03E7 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2493EE63DCF54C47A51F5E44 /* libPods-Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -46,6 +47,8 @@
 		2228D772E8CE462A8B257DBD /* libPods-FWTDragView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FWTDragView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2294BF5619C05F1100B540A6 /* FWTLeftDismissCriteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTLeftDismissCriteria.h; sourceTree = "<group>"; };
 		2294BF5719C05F1100B540A6 /* FWTLeftDismissCriteria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWTLeftDismissCriteria.m; sourceTree = "<group>"; };
+		2294BF5919C0806700B540A6 /* FWTRightDismissCriteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTRightDismissCriteria.h; sourceTree = "<group>"; };
+		2294BF5A19C0806700B540A6 /* FWTRightDismissCriteria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWTRightDismissCriteria.m; sourceTree = "<group>"; };
 		22D14E1019BDEEB4001947D9 /* FWTDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FWTDragView.h; path = ../../Pod/Classes/FWTDragView.h; sourceTree = "<group>"; };
 		22D14E1119BDEEB4001947D9 /* FWTDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FWTDragView.m; path = ../../Pod/Classes/FWTDragView.m; sourceTree = "<group>"; };
 		22D14E1419BDEEDB001947D9 /* FWTDragViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FWTDragViewDelegate.h; path = ../../Pod/Classes/FWTDragViewDelegate.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				6003F594195388D20070C39A /* Supporting Files */,
 				2294BF5619C05F1100B540A6 /* FWTLeftDismissCriteria.h */,
 				2294BF5719C05F1100B540A6 /* FWTLeftDismissCriteria.m */,
+				2294BF5919C0806700B540A6 /* FWTRightDismissCriteria.h */,
+				2294BF5A19C0806700B540A6 /* FWTRightDismissCriteria.m */,
 			);
 			path = FWTDragView;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2294BF5819C05F1100B540A6 /* FWTLeftDismissCriteria.m in Sources */,
+				2294BF5B19C0806700B540A6 /* FWTRightDismissCriteria.m in Sources */,
 				6003F59E195388D20070C39A /* FWTAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* FWTViewController.m in Sources */,
 				221D128519BF03E0000A45E3 /* FWTDragViewPanGestureHandler.m in Sources */,
