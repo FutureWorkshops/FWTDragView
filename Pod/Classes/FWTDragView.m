@@ -13,6 +13,7 @@
 
 @property (nonatomic,strong) NSArray *dismissCriteria;
 @property (nonatomic,assign) CGPoint lastTouchPoint;
+@property (nonatomic,assign) CGPoint currentTouchPoint;
 @property (nonatomic,assign) CGPoint initialTouchPoint;
 @property (nonatomic,strong) FWTDragViewPanGestureHandler *gestureHandler;
 @end
