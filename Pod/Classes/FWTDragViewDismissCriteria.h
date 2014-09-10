@@ -50,6 +50,6 @@
  *  @return completion - Percentage complete of the dismissal. Return < 0 for none, >= 1 for complete
  */
 
-- (CGFLoat)dismissPercentageConfiguringDragView:(FWTDragView *)dragView;
+- (CGFloat)dismissPercentageConfiguringDragView:(FWTDragView *)dragView;
 
 @end

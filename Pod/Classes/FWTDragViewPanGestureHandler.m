@@ -8,6 +8,7 @@
 
 #import "FWTDragViewPanGestureHandler.h"
 #import "FWTDragView.h"
+#import "FWTDragViewDismissCriteria.h"
 
 @interface FWTDragViewPanGestureHandler()
 
@@ -17,6 +18,7 @@
 
 @interface FWTDragView (Known)
 
+@property (nonatomic,strong) NSArray *dismissCriteria;
 @property (nonatomic,assign) CGPoint lastTouchPoint;
 @property (nonatomic,assign) CGPoint currentTouchPoint;
 @property (nonatomic,assign) CGPoint initialTouchPoint;
@@ -34,6 +36,23 @@
     transform = CGAffineTransformTranslate(transform, delta.x, delta.y);
     
     self.draggingView.transform = transform;
+    
+    [self.draggingView.dismissCriteria enumerateObjectsUsingBlock:^(id <FWTDragViewDismissCriteria>dismissCriteria, NSUInteger idx, BOOL *stop) {
+        CGFloat completion = [dismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
+        if (completion > 0.f) {
+            *stop = YES;
+            
+            UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
+            if (overlayView.superview != self.draggingView) {
+                [overlayView removeFromSuperview];
+                [self.draggingView addSubview:overlayView];
+            }
+            
+            if (completion > 1.f) {
+                [dismissCriteria dismissDragView:self.draggingView];
+            }
+        }
+    }];
 }
 
 - (void)_panGestureFired:(UIPanGestureRecognizer *)panGesture {
