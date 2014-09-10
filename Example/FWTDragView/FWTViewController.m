@@ -7,9 +7,11 @@
 //
 
 #import "FWTViewController.h"
+#import "FWTDragView.h"
 
 @interface FWTViewController ()
 
+@property (nonatomic,strong) FWTDragView *dragView;
 @end
 
 @implementation FWTViewController
@@ -17,13 +19,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    self.dragView = [FWTDragView dragViewWithDismissCriteria:nil];
+    self.dragView.frame = (CGRect){{100.f,100.f},{120.f,200.f}};
+    self.dragView.backgroundColor = [UIColor purpleColor];
+    [self.view addSubview:self.dragView];
 }
 
 @end
