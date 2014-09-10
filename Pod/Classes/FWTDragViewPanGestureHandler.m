@@ -13,6 +13,7 @@
 @interface FWTDragViewPanGestureHandler()
 
 @property (nonatomic,weak) FWTDragView *draggingView;
+@property (nonatomic,assign) BOOL dismissed;
 
 @end
 
@@ -29,14 +30,6 @@
 
 - (void)_updateBasedOnTouchPoints {
     
-    CGAffineTransform transform = self.draggingView.transform;
-    CGPoint delta = (CGPoint){self.draggingView.currentTouchPoint.x - self.draggingView.lastTouchPoint.x,
-                              self.draggingView.currentTouchPoint.y - self.draggingView.lastTouchPoint.y};
-    
-    transform = CGAffineTransformTranslate(transform, delta.x, delta.y);
-    
-    self.draggingView.transform = transform;
-    
     [self.draggingView.dismissCriteria enumerateObjectsUsingBlock:^(id <FWTDragViewDismissCriteria>dismissCriteria, NSUInteger idx, BOOL *stop) {
         CGFloat completion = [dismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
         if (completion > 0.f) {
@@ -49,9 +42,28 @@
             }
             
             if (completion > 1.f) {
+                self.dismissed = YES;
                 [dismissCriteria dismissDragView:self.draggingView];
             }
         }
+    }];
+}
+
+- (void)_panToLastTouchPoint {
+    
+    CGAffineTransform transform = self.draggingView.transform;
+    CGPoint delta = (CGPoint){self.draggingView.currentTouchPoint.x - self.draggingView.lastTouchPoint.x,
+        self.draggingView.currentTouchPoint.y - self.draggingView.lastTouchPoint.y};
+    
+    transform = CGAffineTransformTranslate(transform, delta.x, delta.y);
+    
+    self.draggingView.transform = transform;
+}
+
+- (void)_centerOnFailure {
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        self.draggingView.transform = CGAffineTransformIdentity;
     }];
 }
 
@@ -69,6 +81,7 @@
                 [self.draggingView.dragDelegate dragViewWillBeginDragging:self.draggingView];
             }
             
+            [self _panToLastTouchPoint];
             [self _updateBasedOnTouchPoints];
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidBeginDragging:)]) {
@@ -84,6 +97,7 @@
                 [self.draggingView.dragDelegate dragViewWillDrag:self.draggingView];
             }
             
+            [self _panToLastTouchPoint];
             [self _updateBasedOnTouchPoints];
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDrag:)]) {
@@ -104,7 +118,10 @@
                 [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
             }
             
-            [self _updateBasedOnTouchPoints];
+            if (!self.dismissed) {
+                [self _centerOnFailure];
+                [self _updateBasedOnTouchPoints];
+            }
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
                 [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
