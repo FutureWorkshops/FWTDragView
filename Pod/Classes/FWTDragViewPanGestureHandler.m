@@ -34,10 +34,10 @@
 
 - (void)_updateBasedOnTouchPoints {
     
-    [self.draggingView.dismissCriteria enumerateObjectsUsingBlock:^(id <FWTDragViewDismissCriteria>dismissCriteria, NSUInteger idx, BOOL *stop) {
+    for (id <FWTDragViewDismissCriteria> dismissCriteria  in self.draggingView.dismissCriteria) {
+        
         CGFloat completion = [dismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
         if (completion > 0.f) {
-            *stop = YES;
             
             UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
             if (overlayView.superview != self.draggingView) {
@@ -47,7 +47,7 @@
             
             if (completion > 1.f && !self.dismissed) {
                 self.dismissed = YES;
-
+                
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
                     [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
                 }
@@ -55,7 +55,7 @@
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
                     [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
                 }
-
+                
                 [UIView animateWithDuration:0.1f animations:^{
                     [dismissCriteria dismissDragView:self.draggingView animated:NO];
                 } completion:^(BOOL finished) {
@@ -69,8 +69,10 @@
                     }
                 }];
             }
+            break;
         }
-    }];
+
+    }
 }
 
 - (void)_panToLastTouchPoint {
@@ -102,6 +104,9 @@
 
 - (void)_panGestureFired:(UIPanGestureRecognizer *)panGesture {
     
+    if (self.draggingView.userInteractionEnabled == NO) {
+        return;
+    }
     switch (panGesture.state) {
             
         case UIGestureRecognizerStateBegan:
@@ -124,6 +129,9 @@
             
         case UIGestureRecognizerStateChanged:
             
+            if (self.dismissed) {
+                break;
+            }
             self.draggingView.currentTouchPoint = [panGesture translationInView:self.draggingView];
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDrag:)]) {
