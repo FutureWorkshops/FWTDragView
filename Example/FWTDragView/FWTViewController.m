@@ -24,6 +24,8 @@
     
     self.dragView = [FWTDragView dragViewWithDismissCriteria:@[[FWTLeftDismissCriteria new],[FWTRightDismissCriteria new]]];
     self.dragView.frame = (CGRect){{100.f,100.f},{120.f,200.f}};
+    self.dragView.dismissAnimationDuration = 0.1f;
+    self.dragView.centerAnimationDuration = 0.1f;
     self.dragView.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:self.dragView];
 }

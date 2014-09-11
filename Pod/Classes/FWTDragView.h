@@ -16,6 +16,8 @@
 
 - (void)prepareForReuse;
 
+@property (nonatomic) NSTimeInterval dismissAnimationDuration;
+@property (nonatomic) NSTimeInterval centerAnimationDuration;
 @property (nonatomic,weak) id <FWTDragViewDelegate> dragDelegate;
 
 

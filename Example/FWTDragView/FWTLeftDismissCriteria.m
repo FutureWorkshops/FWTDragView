@@ -29,7 +29,6 @@
     } else {
         dismissBlock();
     }
-    
 }
 
 - (UIView *)overlayOnDragView:(FWTDragView *)dragView {

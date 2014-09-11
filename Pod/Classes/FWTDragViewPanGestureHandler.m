@@ -56,7 +56,7 @@
                     [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
                 }
                 
-                [UIView animateWithDuration:0.1f animations:^{
+                [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
                     [dismissCriteria dismissDragView:self.draggingView animated:NO];
                 } completion:^(BOOL finished) {
                     
@@ -92,7 +92,7 @@
         [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
     }
 
-    [UIView animateWithDuration:0.1f animations:^{
+    [UIView animateWithDuration:self.draggingView.centerAnimationDuration animations:^{
         self.draggingView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         
