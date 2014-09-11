@@ -22,4 +22,8 @@
 
 - (void)dragViewWillEndDragging:(FWTDragView *)dragView;
 - (void)dragViewDidEndDragging:(FWTDragView *)dragView;
+
+- (void)dragViewWillDismiss:(FWTDragView *)dragView;
+- (void)dragViewDidDismiss:(FWTDragView *)dragView;
+
 @end

@@ -29,7 +29,7 @@
  */
 
 
-- (void)dismissDragView:(FWTDragView *)dragView;
+- (void)dismissDragView:(FWTDragView *)dragView animated:(BOOL)animated;
 
 /**
  *  overlayOnDragView - The drag view calls this repeatedly to construct (Once, preferably) and repeatedly configure the overlay view inside the

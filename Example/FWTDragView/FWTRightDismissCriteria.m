@@ -18,11 +18,16 @@
 
 @implementation FWTRightDismissCriteria
 
-- (void)dismissDragView:(FWTDragView *)dragView {
-    
-    [UIView animateWithDuration:1.1f animations:^{
+- (void)dismissDragView:(FWTDragView *)dragView animated:(BOOL)animated{
+    void(^dismissBlock)(void) = ^ {
         dragView.transform = CGAffineTransformTranslate(dragView.transform, 20.f, 0.f);
-    }];
+    };
+    if (animated) {
+        [UIView animateWithDuration:0.1f animations:dismissBlock];
+    } else {
+        dismissBlock();
+    }
+        
 }
 
 - (UIView *)overlayOnDragView:(FWTDragView *)dragView {

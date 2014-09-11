@@ -43,7 +43,27 @@
             
             if (completion > 1.f) {
                 self.dismissed = YES;
-                [dismissCriteria dismissDragView:self.draggingView];
+
+                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
+                    [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
+                }
+                
+                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
+                    [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
+                }
+
+                [UIView animateWithDuration:0.1f animations:^{
+                    [dismissCriteria dismissDragView:self.draggingView animated:NO];
+                } completion:^(BOOL finished) {
+                    
+                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
+                        [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
+                    }
+                    
+                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
+                        [self.draggingView.dragDelegate dragViewDidDismiss:self.draggingView];
+                    }
+                }];
             }
         }
     }];
@@ -62,8 +82,17 @@
 
 - (void)_centerOnFailure {
     
+    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
+        [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
+    }
+
     [UIView animateWithDuration:0.1f animations:^{
         self.draggingView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        
+        if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
+            [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
+        }
     }];
 }
 
@@ -114,17 +143,9 @@
             
             self.draggingView.lastTouchPoint = [panGesture translationInView:self.draggingView];
             
-            if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
-                [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
-            }
-            
             if (!self.dismissed) {
                 [self _centerOnFailure];
                 [self _updateBasedOnTouchPoints];
-            }
-            
-            if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
-                [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
             }
             
             break;
