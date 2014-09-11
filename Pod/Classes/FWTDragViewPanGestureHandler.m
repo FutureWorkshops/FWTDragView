@@ -28,6 +28,10 @@
 
 @implementation FWTDragViewPanGestureHandler
 
+- (void)prepareForReuse {
+    self.dismissed = NO;
+}
+
 - (void)_updateBasedOnTouchPoints {
     
     [self.draggingView.dismissCriteria enumerateObjectsUsingBlock:^(id <FWTDragViewDismissCriteria>dismissCriteria, NSUInteger idx, BOOL *stop) {
@@ -41,7 +45,7 @@
                 [self.draggingView addSubview:overlayView];
             }
             
-            if (completion > 1.f) {
+            if (completion > 1.f && !self.dismissed) {
                 self.dismissed = YES;
 
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {

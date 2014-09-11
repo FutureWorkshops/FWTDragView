@@ -14,6 +14,8 @@
 - (CGPoint)touchPoint;
 - (CGPoint)touchOffsetFromStart;
 
+- (void)prepareForReuse;
+
 @property (nonatomic,weak) id <FWTDragViewDelegate> dragDelegate;
 
 

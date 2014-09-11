@@ -43,4 +43,11 @@
     return point;
 }
 
+- (void)prepareForReuse {
+    self.lastTouchPoint = CGPointZero;
+    self.initialTouchPoint = CGPointZero;
+    self.currentTouchPoint = CGPointZero;
+    [self.gestureHandler prepareForReuse];
+    
+}
 @end

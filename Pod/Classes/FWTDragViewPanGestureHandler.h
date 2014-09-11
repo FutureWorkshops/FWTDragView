@@ -12,6 +12,8 @@
 
 @interface FWTDragViewPanGestureHandler : NSObject
 
+- (void)prepareForReuse;
+
 + (instancetype)draggingGestureHandlerAttachedToView:(FWTDragView *)dragView;
 
 @end
