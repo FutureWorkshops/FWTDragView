@@ -8,10 +8,11 @@
 
 #import "FWTDragView.h"
 #import "FWTDragViewPanGestureHandler.h"
+#import "FWTDragViewDismissCriteria.h"
 
 @interface FWTDragView ()
 
-@property (nonatomic,strong) NSArray *dismissCriteria;
+@property (nonatomic,readwrite) NSArray *dismissCriteria;
 @property (nonatomic,assign) CGPoint lastTouchPoint;
 @property (nonatomic,assign) CGPoint currentTouchPoint;
 @property (nonatomic,assign) CGPoint initialTouchPoint;
@@ -44,10 +45,25 @@
 }
 
 - (void)prepareForReuse {
+    
     self.lastTouchPoint = CGPointZero;
     self.initialTouchPoint = CGPointZero;
     self.currentTouchPoint = CGPointZero;
     [self.gestureHandler prepareForReuse];
-    
 }
+
+- (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria {
+    
+    if ([self.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
+        [self.dragDelegate dragViewWillDismiss:self];
+    }
+    [UIView animateWithDuration:self.dismissAnimationDuration animations:^{
+        [dismissCriteria dismissDragView:self animated:NO];
+    } completion:^(BOOL finished) {
+        if ([self.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
+            [self.dragDelegate dragViewDidDismiss:self];
+        }
+    }];
+}
+
 @end

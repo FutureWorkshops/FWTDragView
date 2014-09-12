@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FWTDragViewDelegate.h"
 
+
+@protocol FWTDragViewDismissCriteria;
+
 @interface FWTDragView : UIView
 
 - (CGPoint)touchPoint;
@@ -16,6 +19,9 @@
 
 - (void)prepareForReuse;
 
+- (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria;
+
+@property (nonatomic,readonly) NSArray *dismissCriteria;
 @property (nonatomic) NSTimeInterval dismissAnimationDuration;
 @property (nonatomic) NSTimeInterval centerAnimationDuration;
 @property (nonatomic,weak) id <FWTDragViewDelegate> dragDelegate;
