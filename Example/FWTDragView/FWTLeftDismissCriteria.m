@@ -19,7 +19,6 @@
 
 @implementation FWTLeftDismissCriteria
 
-
 - (void)dismissDragView:(FWTDragView *)dragView animated:(BOOL)animated{
     void(^dismissBlock)(void) = ^ {
         dragView.transform = CGAffineTransformTranslate(dragView.transform, -20.f, 0.f);

@@ -13,7 +13,7 @@
 @interface FWTDragViewPanGestureHandler()
 
 @property (nonatomic,weak) FWTDragView *draggingView;
-@property (nonatomic,assign) BOOL dismissed;
+@property (nonatomic,weak) id <FWTDragViewDismissCriteria> hitDismissCriteria;
 
 @end
 
@@ -29,7 +29,7 @@
 @implementation FWTDragViewPanGestureHandler
 
 - (void)prepareForReuse {
-    self.dismissed = NO;
+    self.hitDismissCriteria = nil;
 }
 
 - (void)_updateBasedOnTouchPoints {
@@ -44,34 +44,9 @@
                 [overlayView removeFromSuperview];
                 [self.draggingView addSubview:overlayView];
             }
-            
-            if (completion > 1.f && !self.dismissed) {
-                self.dismissed = YES;
-                
-                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
-                    [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
-                }
-                
-                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
-                    [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
-                }
-                
-                [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
-                    [dismissCriteria dismissDragView:self.draggingView animated:NO];
-                } completion:^(BOOL finished) {
-                    
-                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
-                        [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
-                    }
-                    
-                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
-                        [self.draggingView.dragDelegate dragViewDidDismiss:self.draggingView];
-                    }
-                }];
-            }
+            self.hitDismissCriteria = dismissCriteria;
             break;
         }
-
     }
 }
 
@@ -93,7 +68,11 @@
     }
 
     [UIView animateWithDuration:self.draggingView.centerAnimationDuration animations:^{
+        
         self.draggingView.transform = CGAffineTransformIdentity;
+        [self.hitDismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
+        [self.hitDismissCriteria overlayOnDragView:self.draggingView];
+        
     } completion:^(BOOL finished) {
         
         if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
@@ -129,9 +108,6 @@
             
         case UIGestureRecognizerStateChanged:
             
-            if (self.dismissed) {
-                break;
-            }
             self.draggingView.currentTouchPoint = [panGesture translationInView:self.draggingView];
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDrag:)]) {
@@ -155,7 +131,29 @@
             
             self.draggingView.lastTouchPoint = [panGesture translationInView:self.draggingView];
             
-            if (!self.dismissed) {
+            if ([self.hitDismissCriteria dismissPercentageConfiguringDragView:self.draggingView] > 1.f) {
+
+                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
+                    [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
+                }
+                
+                if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
+                    [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
+                }
+                
+                [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
+                    [self.hitDismissCriteria dismissDragView:self.draggingView animated:NO];
+                } completion:^(BOOL finished) {
+                    self.hitDismissCriteria = nil;
+                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
+                        [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
+                    }
+                    
+                    if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
+                        [self.draggingView.dragDelegate dragViewDidDismiss:self.draggingView];
+                    }
+                }];
+            } else {
                 [self _centerOnFailure];
                 [self _updateBasedOnTouchPoints];
             }
