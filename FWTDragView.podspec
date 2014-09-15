@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/FutureWorkshops/FWTDragView"
   s.license          = 'MIT'
   s.author           = { "Tim Chilvers" => "tim@futureworkshops.com" }
-  s.source           = { :git => "https://github.com/FutureWorkhsops/FWTDragView.git", :tag => s.version.to_s }
+  s.source           = { :git => "git@github.com:FutureWorkshops/FWTDragView.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
