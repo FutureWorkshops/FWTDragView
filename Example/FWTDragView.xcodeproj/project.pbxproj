@@ -45,6 +45,7 @@
 		221D128319BF03E0000A45E3 /* FWTDragViewPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FWTDragViewPanGestureHandler.h; path = ../../Pod/Classes/FWTDragViewPanGestureHandler.h; sourceTree = "<group>"; };
 		221D128419BF03E0000A45E3 /* FWTDragViewPanGestureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FWTDragViewPanGestureHandler.m; path = ../../Pod/Classes/FWTDragViewPanGestureHandler.m; sourceTree = "<group>"; };
 		2228D772E8CE462A8B257DBD /* libPods-FWTDragView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FWTDragView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		223B245019C6EF2A00BDC570 /* FWTDraggable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FWTDraggable.h; sourceTree = "<group>"; };
 		2294BF5619C05F1100B540A6 /* FWTLeftDismissCriteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTLeftDismissCriteria.h; sourceTree = "<group>"; };
 		2294BF5719C05F1100B540A6 /* FWTLeftDismissCriteria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWTLeftDismissCriteria.m; sourceTree = "<group>"; };
 		2294BF5919C0806700B540A6 /* FWTRightDismissCriteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTRightDismissCriteria.h; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 				22D14E1719BDF27B001947D9 /* FWTDragViewDismissCriteria.h */,
 				221D128319BF03E0000A45E3 /* FWTDragViewPanGestureHandler.h */,
 				221D128419BF03E0000A45E3 /* FWTDragViewPanGestureHandler.m */,
+				223B245019C6EF2A00BDC570 /* FWTDraggable.h */,
 			);
 			name = "Drag View";
 			sourceTree = "<group>";

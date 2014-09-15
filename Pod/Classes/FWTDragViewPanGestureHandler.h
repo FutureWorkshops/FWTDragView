@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class FWTDragView;
+@protocol FWTDraggable;
 
 @interface FWTDragViewPanGestureHandler : NSObject
 
 - (void)prepareForReuse;
 
-+ (instancetype)draggingGestureHandlerAttachedToView:(FWTDragView *)dragView;
++ (instancetype)draggingGestureHandlerAttachedToView:(UIView <FWTDraggable> *)dragView;
 
 @end

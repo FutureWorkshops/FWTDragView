@@ -7,22 +7,15 @@
 //
 
 #import "FWTDragViewPanGestureHandler.h"
-#import "FWTDragView.h"
 #import "FWTDragViewDismissCriteria.h"
+#import "FWTDraggable.h"
+#import "FWTDragViewDelegate.h"
 
 @interface FWTDragViewPanGestureHandler()
 
-@property (nonatomic,weak) FWTDragView *draggingView;
+@property (nonatomic,weak) UIView <FWTDraggable> *draggingView;
 @property (nonatomic,weak) id <FWTDragViewDismissCriteria> hitDismissCriteria;
-
-@end
-
-@interface FWTDragView (Known)
-
-@property (nonatomic,strong) NSArray *dismissCriteria;
-@property (nonatomic,assign) CGPoint lastTouchPoint;
-@property (nonatomic,assign) CGPoint currentTouchPoint;
-@property (nonatomic,assign) CGPoint initialTouchPoint;
+@property (nonatomic,weak) UIView *overlayView;
 
 @end
 
@@ -30,13 +23,15 @@
 
 - (void)prepareForReuse {
     self.hitDismissCriteria = nil;
+    [self.overlayView removeFromSuperview];
+    self.overlayView = nil;
 }
 
 - (void)_updateBasedOnTouchPoints {
     
     for (id <FWTDragViewDismissCriteria> dismissCriteria  in self.draggingView.dismissCriteria) {
         
-        CGFloat completion = [dismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
+        CGFloat completion = [dismissCriteria dismissPercentageConfiguringDraggable:self.draggingView];
         if (completion > 0.f) {
             
             UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
@@ -63,6 +58,8 @@
 
 - (void)_centerOnFailure {
     
+    self.draggingView.draggedTo = CGPointZero;
+
     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
         [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
     }
@@ -70,7 +67,7 @@
     [UIView animateWithDuration:self.draggingView.centerAnimationDuration animations:^{
         
         self.draggingView.transform = CGAffineTransformIdentity;
-        [self.hitDismissCriteria dismissPercentageConfiguringDragView:self.draggingView];
+        [self.hitDismissCriteria dismissPercentageConfiguringDraggable:self.draggingView];
         [self.hitDismissCriteria overlayOnDragView:self.draggingView];
         
     } completion:^(BOOL finished) {
@@ -93,6 +90,8 @@
             self.draggingView.initialTouchPoint = [panGesture translationInView:self.draggingView];
             self.draggingView.lastTouchPoint = self.draggingView.initialTouchPoint;
             self.draggingView.currentTouchPoint = self.draggingView.initialTouchPoint;
+            self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
+                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillBeginDragging:)]) {
                 [self.draggingView.dragDelegate dragViewWillBeginDragging:self.draggingView];
@@ -109,7 +108,9 @@
         case UIGestureRecognizerStateChanged:
             
             self.draggingView.currentTouchPoint = [panGesture translationInView:self.draggingView];
-            
+            self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
+                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
+
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDrag:)]) {
                 [self.draggingView.dragDelegate dragViewWillDrag:self.draggingView];
             }
@@ -130,8 +131,10 @@
         case UIGestureRecognizerStateFailed:
             
             self.draggingView.lastTouchPoint = [panGesture translationInView:self.draggingView];
-            
-            if ([self.hitDismissCriteria dismissPercentageConfiguringDragView:self.draggingView] > 1.f) {
+            self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
+                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
+
+            if ([self.hitDismissCriteria dismissPercentageConfiguringDraggable:self.draggingView] > 1.f) {
 
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
                     [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
@@ -165,7 +168,7 @@
     }
 }
 
-+ (instancetype)draggingGestureHandlerAttachedToView:(FWTDragView *)dragView {
++ (instancetype)draggingGestureHandlerAttachedToView:(UIView <FWTDraggable> *)dragView {
     
     FWTDragViewPanGestureHandler *handler = [[self alloc] init];
     handler.draggingView = dragView;

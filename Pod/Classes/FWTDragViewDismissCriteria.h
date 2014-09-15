@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol FWTDraggable;
 @class FWTDragView;
 
 
@@ -29,7 +30,7 @@
  */
 
 
-- (void)dismissDragView:(FWTDragView *)dragView animated:(BOOL)animated;
+- (void)dismissDragView:(UIView <FWTDraggable> *)dragView animated:(BOOL)animated;
 
 /**
  *  overlayOnDragView - The drag view calls this repeatedly to construct (Once, preferably) and repeatedly configure the overlay view inside the
@@ -39,10 +40,10 @@
  *  @return asdf
  */
 
-- (UIView *)overlayOnDragView:(FWTDragView *)dragView;
+- (UIView *)overlayOnDragView:(UIView <FWTDraggable> *)dragView;
 
 /**
- *  dismissPercentageConfiguringDragView - Called to find out how complete the dismissal is for the dragview. 
+ *  dismissPercentageConfiguringDraggable - Called to find out how complete the dismissal is for the dragview. 
                                             This is the callback to configure the drag view relating to the calculated dismiss percentage.
  *
  *  @param dragView - the view in question
@@ -50,6 +51,6 @@
  *  @return completion - Percentage complete of the dismissal. Return < 0 for none, >= 1 for complete
  */
 
-- (CGFloat)dismissPercentageConfiguringDragView:(FWTDragView *)dragView;
+- (CGFloat)dismissPercentageConfiguringDraggable:(UIView <FWTDraggable> *)draggable;
 
 @end

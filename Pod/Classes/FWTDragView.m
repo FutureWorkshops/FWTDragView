@@ -12,10 +12,15 @@
 
 @interface FWTDragView ()
 
+@property (nonatomic) NSTimeInterval dismissAnimationDuration;
+@property (nonatomic) NSTimeInterval centerAnimationDuration;
+
 @property (nonatomic,readwrite) NSArray *dismissCriteria;
-@property (nonatomic,assign) CGPoint lastTouchPoint;
-@property (nonatomic,assign) CGPoint currentTouchPoint;
-@property (nonatomic,assign) CGPoint initialTouchPoint;
+@property (nonatomic,readwrite) CGPoint lastTouchPoint;
+@property (nonatomic,readwrite) CGPoint currentTouchPoint;
+@property (nonatomic,readwrite) CGPoint initialTouchPoint;
+@property (nonatomic) CGPoint draggedTo;
+
 @property (nonatomic,strong) FWTDragViewPanGestureHandler *gestureHandler;
 @end
 
@@ -31,25 +36,13 @@
     return dragView;
 }
 
-
-- (CGPoint)touchPoint {
-    
-    CGPoint point = (CGPoint){self.lastTouchPoint.x,self.lastTouchPoint.y};
-    return point;
-}
-
-- (CGPoint)touchOffsetFromStart {
-    
-    CGPoint point = (CGPoint){self.initialTouchPoint.x - self.lastTouchPoint.x,self.initialTouchPoint.y - self.lastTouchPoint.y};
-    return point;
-}
-
 - (void)prepareForReuse {
     
     self.lastTouchPoint = CGPointZero;
     self.initialTouchPoint = CGPointZero;
     self.currentTouchPoint = CGPointZero;
     [self.gestureHandler prepareForReuse];
+    self.draggedTo = self.center;
 }
 
 - (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria {

@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 
 
-@class FWTDragView;
+@protocol FWTDraggable;
 
 @protocol FWTDragViewDelegate <NSObject>
 
 @optional
-- (void)dragViewWillBeginDragging:(FWTDragView *)dragView;
-- (void)dragViewDidBeginDragging:(FWTDragView *)dragView;
+- (void)dragViewWillBeginDragging:(UIView <FWTDraggable> *)dragView;
+- (void)dragViewDidBeginDragging:(UIView <FWTDraggable> *)dragView;
 
-- (void)dragViewWillDrag:(FWTDragView *)dragView;
-- (void)dragViewDidDrag:(FWTDragView *)dragView;
+- (void)dragViewWillDrag:(UIView <FWTDraggable> *)dragView;
+- (void)dragViewDidDrag:(UIView <FWTDraggable> *)dragView;
 
-- (void)dragViewWillEndDragging:(FWTDragView *)dragView;
-- (void)dragViewDidEndDragging:(FWTDragView *)dragView;
+- (void)dragViewWillEndDragging:(UIView <FWTDraggable> *)dragView;
+- (void)dragViewDidEndDragging:(UIView <FWTDraggable> *)dragView;
 
-- (void)dragViewWillDismiss:(FWTDragView *)dragView;
-- (void)dragViewDidDismiss:(FWTDragView *)dragView;
+- (void)dragViewWillDismiss:(UIView <FWTDraggable> *)dragView;
+- (void)dragViewDidDismiss:(UIView <FWTDraggable> *)dragView;
 
 @end

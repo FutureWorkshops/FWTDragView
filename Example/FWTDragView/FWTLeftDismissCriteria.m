@@ -8,6 +8,7 @@
 
 #import "FWTLeftDismissCriteria.h"
 #import "FWTDragView.h"
+#import "FWTDraggable.h"
 
 @interface FWTLeftDismissCriteria ()
 
@@ -19,7 +20,7 @@
 
 @implementation FWTLeftDismissCriteria
 
-- (void)dismissDragView:(FWTDragView *)dragView animated:(BOOL)animated{
+- (void)dismissDragView:(UIView <FWTDraggable> *)dragView animated:(BOOL)animated{
     void(^dismissBlock)(void) = ^ {
         dragView.transform = CGAffineTransformTranslate(dragView.transform, -20.f, 0.f);
     };
@@ -30,7 +31,7 @@
     }
 }
 
-- (UIView *)overlayOnDragView:(FWTDragView *)dragView {
+- (UIView *)overlayOnDragView:(UIView <FWTDraggable> *)dragView {
     
     if (!self.label) {
         self.label = [[UILabel alloc] init];
@@ -42,12 +43,12 @@
     return self.label;
 }
 
-- (CGFloat)dismissPercentageConfiguringDragView:(FWTDragView *)dragView {
+- (CGFloat)dismissPercentageConfiguringDraggable:(UIView <FWTDraggable> *)dragView {
     
     CGFloat startThreshold = -10.f;
     CGFloat finishThreshold = -60.f;
     
-    CGFloat currentPan = dragView.transform.tx;
+    CGFloat currentPan = dragView.draggedTo.x;
     
     CGFloat rangedPan = (currentPan - startThreshold) / finishThreshold;
     self.currentDismissal = rangedPan;
