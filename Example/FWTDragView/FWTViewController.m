@@ -8,8 +8,7 @@
 
 #import "FWTViewController.h"
 #import "FWTDragView.h"
-#import "FWTLeftDismissCriteria.h"
-#import "FWTRightDismissCriteria.h"
+#import "FWTLateralDismissCriteria.h"
 
 @interface FWTViewController ()
 
@@ -22,7 +21,7 @@
 {
     [super viewDidLoad];
     
-    self.dragView = [FWTDragView dragViewWithDismissCriteria:@[[FWTLeftDismissCriteria new],[FWTRightDismissCriteria new]]];
+    self.dragView = [FWTDragView dragViewWithDismissCriteria:@[[FWTLateralDismissCriteria lateralCriteriaWithStart:20.f end:80.f target:200.f],[FWTLateralDismissCriteria lateralCriteriaWithStart:-20.f end:-80.f target:-200.f]]];
     self.dragView.frame = (CGRect){{100.f,100.f},{120.f,200.f}};
     self.dragView.dismissAnimationDuration = 0.1f;
     self.dragView.centerAnimationDuration = 0.1f;
