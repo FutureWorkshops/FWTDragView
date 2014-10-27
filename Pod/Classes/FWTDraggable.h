@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol FWTDragViewDelegate;
+@protocol FWTDragViewDelegate, FWTDragViewDismissCriteria;
 
 @protocol FWTDraggable <NSObject>
 
 @required
+
+- (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria;
+
 
 - (CGPoint)draggedTo;
 - (void)setDraggedTo:(CGPoint)draggedTo;
@@ -35,5 +38,7 @@
 
 - (CGPoint)initialTouchPoint;
 - (void)setInitialTouchPoint:(CGPoint)initialTouchPoint;
+
+- (void)resetToInitialPosition;
 
 @end

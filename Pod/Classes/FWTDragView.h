@@ -10,13 +10,10 @@
 #import "FWTDragViewDelegate.h"
 #import "FWTDraggable.h"
 
-@protocol FWTDragViewDismissCriteria;
-
 @interface FWTDragView : UIView <FWTDraggable>
 
 - (void)prepareForReuse;
 
-- (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria;
 
 @property (nonatomic,weak) id <FWTDragViewDelegate> dragDelegate;
 

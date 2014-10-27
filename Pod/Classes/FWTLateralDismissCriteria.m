@@ -9,7 +9,7 @@
 #import "FWTLateralDismissCriteria.h"
 #import "FWTDraggable.h"
 
-@interface FWTLateralDismissCriteria ()
+@interface FWTLateralDismissCriteria () <UIAlertViewDelegate>
 
 @property (nonatomic) CGFloat start;
 @property (nonatomic) CGFloat end;
@@ -18,6 +18,7 @@
 @property (nonatomic) UILabel *label;
 @property (nonatomic) CGFloat currentDismissal;
 
+@property (nonatomic,weak) id <FWTDraggable> dismissOnAlert;
 @end
 
 @implementation FWTLateralDismissCriteria
@@ -33,6 +34,18 @@
     criteria.target = target;
     
     return criteria;
+}
+
+- (BOOL)canDismissDragView:(UIView<FWTDraggable> *)dragView {
+    
+    BOOL canDismiss = arc4random() % 2;
+    
+    if (!canDismiss) {
+        self.dismissOnAlert = dragView;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't dismiss" message:@"If you press OK, the drag view will dismiss. If you press cancel, it will center again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    return canDismiss;
 }
 
 - (void)dismissDragView:(UIView <FWTDraggable> *)dragView animated:(BOOL)animated{
@@ -70,5 +83,15 @@
     return rangedPan;
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.cancelButtonIndex == buttonIndex) {
+        [UIView animateWithDuration:0.1f animations:^{
+            [self.dismissOnAlert resetToInitialPosition];
+        }];
+    } else {
+        [self.dismissOnAlert dismissWithCriteria:self];
+    }
+}
 
 @end

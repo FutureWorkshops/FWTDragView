@@ -33,6 +33,17 @@
 - (void)dismissDragView:(UIView <FWTDraggable> *)dragView animated:(BOOL)animated;
 
 /**
+ *  canDismissDragView - The drag view calls this in order to tell if the dismiss criteria will let the draggable view be dismissed.
+ *
+ *  @param dragView - the drag view in questions
+ *
+ *  @return YES - the drag view will continue with dismissal and call dismissDragView
+            NO - the drag view will halt the dismissal chain.
+ */
+
+- (BOOL)canDismissDragView:(UIView <FWTDraggable> *)dragView;
+
+/**
  *  overlayOnDragView - The drag view calls this repeatedly to construct (Once, preferably) and repeatedly configure the overlay view inside the
  *
  *  @param dragView asdf

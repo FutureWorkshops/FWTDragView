@@ -25,6 +25,7 @@
     self.hitDismissCriteria = nil;
     [self.overlayView removeFromSuperview];
     self.overlayView = nil;
+    self.draggingView.transform = CGAffineTransformIdentity;
 }
 
 - (void)_updateBasedOnTouchPoints {
@@ -143,10 +144,7 @@
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
                     [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
                 }
-                
-                [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
-                    [self.hitDismissCriteria dismissDragView:self.draggingView animated:NO];
-                } completion:^(BOOL finished) {
+                void (^callDelegateAndFinishBlock)(BOOL) = ^(BOOL ignoreThis) {
                     self.hitDismissCriteria = nil;
                     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
                         [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
@@ -155,7 +153,14 @@
                     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
                         [self.draggingView.dragDelegate dragViewDidDismiss:self.draggingView];
                     }
-                }];
+                };
+                if ([self.hitDismissCriteria canDismissDragView:self.draggingView]) {
+                    [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
+                        [self.hitDismissCriteria dismissDragView:self.draggingView animated:NO];
+                    } completion:callDelegateAndFinishBlock];
+                } else {
+                    callDelegateAndFinishBlock(YES);
+                }
             } else {
                 [self _centerOnFailure];
                 [self _updateBasedOnTouchPoints];

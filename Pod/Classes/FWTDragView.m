@@ -59,4 +59,10 @@
     }];
 }
 
+- (void)resetToInitialPosition {
+    
+    [self prepareForReuse];
+    
+}
+
 @end
