@@ -60,11 +60,11 @@
 - (void)_centerOnFailure {
     
     self.draggingView.draggedTo = CGPointZero;
-
+    
     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
         [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
     }
-
+    
     [UIView animateWithDuration:self.draggingView.centerAnimationDuration animations:^{
         
         self.draggingView.transform = CGAffineTransformIdentity;
@@ -92,7 +92,7 @@
             self.draggingView.lastTouchPoint = self.draggingView.initialTouchPoint;
             self.draggingView.currentTouchPoint = self.draggingView.initialTouchPoint;
             self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
-                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
+                (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
             
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillBeginDragging:)]) {
                 [self.draggingView.dragDelegate dragViewWillBeginDragging:self.draggingView];
@@ -110,8 +110,8 @@
             
             self.draggingView.currentTouchPoint = [panGesture translationInView:self.draggingView];
             self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
-                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
-
+                (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
+            
             if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDrag:)]) {
                 [self.draggingView.dragDelegate dragViewWillDrag:self.draggingView];
             }
@@ -133,10 +133,10 @@
             
             self.draggingView.lastTouchPoint = [panGesture translationInView:self.draggingView];
             self.draggingView.draggedTo = (CGPoint){(self.draggingView.currentTouchPoint.x - self.draggingView.initialTouchPoint.x),
-                                                    (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
-
+                (self.draggingView.currentTouchPoint.y - self.draggingView.initialTouchPoint.y)};
+            
             if ([self.hitDismissCriteria dismissPercentageConfiguringDraggable:self.draggingView] > 1.f) {
-
+                
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillDismiss:)]) {
                     [self.draggingView.dragDelegate dragViewWillDismiss:self.draggingView];
                 }
@@ -152,13 +152,14 @@
                         if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
                             [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
                         }
-
+                        
                         if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidDismiss:)]) {
                             [self.draggingView.dragDelegate dragViewDidDismiss:self.draggingView];
                         }
-
+                        
                     }];
                 } else {
+                    [[self.hitDismissCriteria overlayOnDragView:self.draggingView] removeFromSuperview];
                     self.hitDismissCriteria = nil;
                     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
                         [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];
