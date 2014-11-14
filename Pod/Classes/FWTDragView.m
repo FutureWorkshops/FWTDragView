@@ -43,6 +43,9 @@
     self.currentTouchPoint = CGPointZero;
     [self.gestureHandler prepareForReuse];
     self.draggedTo = self.center;
+    for (id <FWTDragViewDismissCriteria>dismissCriteria in self.dismissCriteria) {
+        [[dismissCriteria overlayOnDragView:self] removeFromSuperview];
+    }
 }
 
 - (void)dismissWithCriteria:(id <FWTDragViewDismissCriteria>)dismissCriteria {
