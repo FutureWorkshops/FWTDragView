@@ -33,15 +33,17 @@
     for (id <FWTDragViewDismissCriteria> dismissCriteria  in self.draggingView.dismissCriteria) {
         
         CGFloat completion = [dismissCriteria dismissPercentageConfiguringDraggable:self.draggingView];
+        UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
+
         if (completion > 0.f) {
             
-            UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
             if (overlayView.superview != self.draggingView) {
                 [overlayView removeFromSuperview];
                 [self.draggingView addSubview:overlayView];
             }
             self.hitDismissCriteria = dismissCriteria;
-            break;
+        } else {
+            [overlayView removeFromSuperview];
         }
     }
 }
