@@ -146,6 +146,10 @@
                 if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewWillEndDragging:)]) {
                     [self.draggingView.dragDelegate dragViewWillEndDragging:self.draggingView];
                 }
+                
+                self.draggingView.frame = CGRectApplyAffineTransform(self.draggingView.frame, self.draggingView.transform);
+                self.draggingView.transform = CGAffineTransformIdentity;
+
                 if ([self.hitDismissCriteria canDismissDragView:self.draggingView]) {
                     [UIView animateWithDuration:self.draggingView.dismissAnimationDuration animations:^{
                         [self.hitDismissCriteria dismissDragView:self.draggingView animated:NO];
