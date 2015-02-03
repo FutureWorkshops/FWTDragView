@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FWTDragView"
-  s.version          = "0.2.5"
+  s.version          = "0.2.6"
   s.summary          = "A tinder style draggable view control for use across FW projects."
   s.description      = <<-DESC
 	#FWTDragView
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/FutureWorkshops/FWTDragView"
   s.license          = 'MIT'
   s.author           = { "Tim Chilvers" => "tim@futureworkshops.com" }
-  s.source           = { :git => "git@github.com:FutureWorkshops/FWTDragView.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/FutureWorkshops/FWTDragView.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
