@@ -19,6 +19,7 @@
 @property (nonatomic,readwrite) CGPoint lastTouchPoint;
 @property (nonatomic,readwrite) CGPoint currentTouchPoint;
 @property (nonatomic,readwrite) CGPoint initialTouchPoint;
+@property (nonatomic,readwrite) CGRect initialLayoutFrame;
 @property (nonatomic) CGPoint draggedTo;
 
 @property (nonatomic,strong) FWTDragViewPanGestureHandler *gestureHandler;
@@ -65,7 +66,9 @@
 - (void)resetToInitialPosition {
     
     [self prepareForReuse];
-    
+    if (!CGRectIsEmpty(self.initialLayoutFrame)) {
+        self.frame = self.initialLayoutFrame;        
+    }
 }
 
 @end
