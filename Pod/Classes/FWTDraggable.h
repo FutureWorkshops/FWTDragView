@@ -40,5 +40,7 @@
 - (void)setInitialTouchPoint:(CGPoint)initialTouchPoint;
 
 - (void)resetToInitialPosition;
+- (void)setInitialLayoutFrame:(CGRect)initialLayoutFrame;
+- (CGRect)initialLayoutFrame;
 
 @end
