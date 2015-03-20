@@ -61,7 +61,7 @@
     
 }
 
-- (UIView *)overlayOnDragView:(UIView <FWTDraggable> *)dragView {
+- (UIView *)overlayForDragView:(UIView <FWTDraggable> *)dragView {
     
     if (!self.label) {
         self.label = [[UILabel alloc] init];

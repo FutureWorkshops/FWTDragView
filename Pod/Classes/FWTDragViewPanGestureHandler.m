@@ -33,13 +33,21 @@
     for (id <FWTDragViewDismissCriteria> dismissCriteria  in self.draggingView.dismissCriteria) {
         
         CGFloat completion = [dismissCriteria dismissPercentageConfiguringDraggable:self.draggingView];
-        UIView *overlayView = [dismissCriteria overlayOnDragView:self.draggingView];
+        UIView *overlayView = [dismissCriteria overlayForDragView:self.draggingView];
 
         if (completion > 0.f) {
             
             if (overlayView.superview != self.draggingView) {
+                
                 [overlayView removeFromSuperview];
-                [self.draggingView addSubview:overlayView];
+                
+                UIView *dragViewContainerView = self.draggingView;
+                
+                if ([dismissCriteria respondsToSelector:@selector(overlaySuperViewForDragView:)]) {
+                    dragViewContainerView = [dismissCriteria overlaySuperViewForDragView:self.draggingView];
+                }
+                
+                [dragViewContainerView addSubview:overlayView];
             }
             self.hitDismissCriteria = dismissCriteria;
         } else {
@@ -71,7 +79,7 @@
         
         self.draggingView.transform = CGAffineTransformIdentity;
         [self.hitDismissCriteria dismissPercentageConfiguringDraggable:self.draggingView];
-        [self.hitDismissCriteria overlayOnDragView:self.draggingView];
+        [self.hitDismissCriteria overlayForDragView:self.draggingView];
         
     } completion:^(BOOL finished) {
         
@@ -165,7 +173,7 @@
                         
                     }];
                 } else {
-                    [[self.hitDismissCriteria overlayOnDragView:self.draggingView] removeFromSuperview];
+                    [[self.hitDismissCriteria overlayForDragView:self.draggingView] removeFromSuperview];
                     self.hitDismissCriteria = nil;
                     if ([self.draggingView.dragDelegate respondsToSelector:@selector(dragViewDidEndDragging:)]) {
                         [self.draggingView.dragDelegate dragViewDidEndDragging:self.draggingView];

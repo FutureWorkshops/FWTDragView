@@ -51,7 +51,7 @@
  *  @return asdf
  */
 
-- (UIView *)overlayOnDragView:(UIView <FWTDraggable> *)dragView;
+- (UIView *)overlayForDragView:(UIView <FWTDraggable> *)dragView;
 
 /**
  *  dismissPercentageConfiguringDraggable - Called to find out how complete the dismissal is for the dragview. 
@@ -63,5 +63,17 @@
  */
 
 - (CGFloat)dismissPercentageConfiguringDraggable:(UIView <FWTDraggable> *)draggable;
+
+@optional
+
+/**
+ *  overlaySuperViewForDragView - The view into which the overlay will be added. If not implemented, uses the draggable view.
+ *
+ *  @param draggable - the view being dragged
+ *
+ *  @return - the view onto which the overlay should be added.
+ */
+
+- (UIView *)overlaySuperViewForDragView:(UIView <FWTDraggable> *)draggable;
 
 @end
