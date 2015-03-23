@@ -26,7 +26,6 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		F544F5E9E98E46A5A0256DB1 /* libPods-FWTDragView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2228D772E8CE462A8B257DBD /* libPods-FWTDragView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +86,6 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				F544F5E9E98E46A5A0256DB1 /* libPods-FWTDragView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +321,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FWTDragView-resources.sh\"\n";
+			shellScript = "";
 			showEnvVarsInLog = 0;
 		};
 		72F201A2ADB0435B8E71AD17 /* Copy Pods Resources */ = {
@@ -545,7 +543,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85B65771F4AC4AA2946672FA /* Pods-Tests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FWTDragView.app/FWTDragView";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -568,7 +565,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85B65771F4AC4AA2946672FA /* Pods-Tests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FWTDragView.app/FWTDragView";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

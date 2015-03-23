@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FWTDragView"
-  s.version          = "0.2.12"
+  s.version          = "0.2.13"
   s.summary          = "A tinder style draggable view control for use across FW projects."
   s.description      = <<-DESC
 	#FWTDragView
